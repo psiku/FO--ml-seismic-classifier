@@ -1,18 +1,24 @@
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "fo-ml-seismic-classifier"
 version = "0.1.0"
-requires-python = ">=3.10"
-
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src*"]
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
+python = "^3.11"
 polars = "^1.37.0"
 datasets = "^4.4.2"
 ipykernel = "^7.1.0"
 matplotlib = "^3.10.8"
+scikit-learn = "^1.8.0"
+pandas = "^2.3.3"
+numpy = "^2.4.1"
+seaborn = "^0.13.2"
+tqdm = "^4.67.1"
+joblib = "^1.5.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
