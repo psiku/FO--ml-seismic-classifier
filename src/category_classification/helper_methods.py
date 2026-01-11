@@ -101,3 +101,28 @@ def save_binary_classification_dataset(df_balanced, output_path="../data/raw/sei
     print(df_binary[["target", "mag", "depth", "nst", "gap", "longitude", "latitude", "id"]].head())
 
     return df_binary
+
+def preprocess_data(df):
+    """Preprocess the seismic data for classification"""
+    
+    df_processed = df.copy()
+    
+    # Extract features and target
+    X = df_processed[["mag", "depth", "nst", "gap", "longitude", "latitude"]].copy()
+    y = df_processed['target'].copy()
+    
+    print("Handling missing values...")
+    for col in X.columns:
+        if X[col].isnull().sum() > 0:
+            X[col].fillna(X[col].median(), inplace=True)
+    
+    # Remove any remaining rows with missing values
+    mask = ~(X.isnull().any(axis=1) | y.isnull())
+    X = X[mask]
+    y = y[mask]
+    
+    print(f"\nFinal dataset shape: {X.shape}")
+    print(f"Features used: {list(X.columns)}")
+    print(f"Number of samples: {len(X)}")
+    
+    return X, y
