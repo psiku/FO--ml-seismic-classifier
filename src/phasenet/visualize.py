@@ -47,7 +47,7 @@ def plot_stream_with_predictions(stream, annotations, metadata):
     plt.show()
 
 
-def plot_fetched_waveforms(stream, annotations):
+def plot_fetched_waveforms(stream, annotations) -> plt.figure:
     fig = plt.figure(figsize=(15, 10))
     axs = fig.subplots(2, 1, sharex=True, gridspec_kw={"hspace": 0})
 
@@ -65,3 +65,5 @@ def plot_fetched_waveforms(stream, annotations):
     axs[1].legend()
     axs[0].set_xlim(10, 70)
     axs[1].set_ylim(0, 1)
+
+    return fig

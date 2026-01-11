@@ -17,3 +17,11 @@ def get_phasenet_model(pretrained_version: str = None):
         return sbm.PhaseNet().to(device)
     else:
         return sbm.PhaseNet.from_pretrained(pretrained_version).to(device)
+
+
+def load_model_from_path(model_path: str, pretrained_version: str = None):
+    device = get_device()
+    model = get_phasenet_model(pretrained_version)
+    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
+    model.to(device)
+    return model
