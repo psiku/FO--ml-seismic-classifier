@@ -2,3 +2,5 @@ polars
 datasets
 ipykernel
 matplotlib
+seisbench
+torch
