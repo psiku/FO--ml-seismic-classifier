@@ -10,3 +10,9 @@ requires-python = ">=3.10"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["src*"]
+
+[tool.poetry.dependencies]
+polars = "^1.37.0"
+datasets = "^4.4.2"
+ipykernel = "^7.1.0"
+matplotlib = "^3.10.8"
