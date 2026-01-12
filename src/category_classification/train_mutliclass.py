@@ -223,7 +223,7 @@ class MultiClassSeismicEventTrainer:
         
         return metrics
     
-    def save_model(self, save_path="models"):
+    def save_model(self, save_path="models_temp"):
         """
         Save the trained model and scaler
         
