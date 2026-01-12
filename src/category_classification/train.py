@@ -4,8 +4,6 @@ from pathlib import Path
 from sklearn.metrics import roc_auc_score, matthews_corrcoef
 import matplotlib.pyplot as plt
 
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
     classification_report, 
     confusion_matrix, 
@@ -14,13 +12,11 @@ from sklearn.metrics import (
     precision_score,
     recall_score
 )
-from tqdm import tqdm
 import joblib
 
 import pandas as pd
 import numpy as np
 import warnings
-from src.category_classification.helper_methods import group_seismic_events, print_distribution, save_binary_classification_dataset, preprocess_data
 
 warnings.filterwarnings('ignore')
 
@@ -92,7 +88,7 @@ class BinarySeismicEventTrainer:
         self.training_history['train_recall'] = train_recall
         self.training_history['train_f1'] = train_f1
         
-        print(f"\n✓ Training completed!")
+        print(f"\nTraining completed!")
         print(f"Training Accuracy:  {train_accuracy:.4f}")
         print(f"Training Precision: {train_precision:.4f}")
         print(f"Training Recall:    {train_recall:.4f}")

@@ -89,10 +89,10 @@ def save_binary_classification_dataset(df_balanced, output_path="../data/raw/sei
 
     pl.DataFrame(df_binary[["target", "mag", "depth", "nst", "gap", "longitude", "latitude", "id"]]).write_csv(output_path)
     
-    print(f"✓ Binary dataset saved to: {output_path}")
-    print(f"✓ Total rows: {len(df_binary):,}")
-    print(f"✓ Columns: {list(df_binary.columns)}")
-    print(f"✓ Target column 'target' added (0=non-earthquake, 1=earthquake)")
+    print(f"Binary dataset saved to: {output_path}")
+    print(f"Total rows: {len(df_binary):,}")
+    print(f"Columns: {list(df_binary.columns)}")
+    print(f"Target column 'target' added (0=non-earthquake, 1=earthquake)")
     
     # Show sample rows
     print("\n" + "="*60)
@@ -116,7 +116,7 @@ def preprocess_data(df):
         if X[col].isnull().sum() > 0:
             X[col].fillna(X[col].median(), inplace=True)
     
-    # Remove any remaining rows with missing values
+    # Remove NaNs
     mask = ~(X.isnull().any(axis=1) | y.isnull())
     X = X[mask]
     y = y[mask]
