@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import polars as pl
 
 def group_seismic_events(event_type):
     """Group seismic events into meaningful categories"""
@@ -45,13 +46,11 @@ def save_binary_classification_dataset(df_balanced, output_path="../data/raw/sei
     print("CREATING BINARY CLASSIFICATION DATASET")
     print("="*60)
     
-    # Create a copy to avoid modifying original
     df_binary = df_balanced.copy()
     
     # Create binary target: 1 for earthquake, 0 for non-earthquake
     df_binary['target'] = (df_binary['type_grouped'] == 'earthquake').astype(int)
 
-    # Show distribution
     print("\nBinary Target Distribution:")
     target_counts = df_binary['target'].value_counts().sort_index()
     print(target_counts)
@@ -60,13 +59,11 @@ def save_binary_classification_dataset(df_balanced, output_path="../data/raw/sei
     print(f"  0 (non-earthquake): {target_counts[0]:,} samples ({target_counts[0]/len(df_binary)*100:.2f}%)")
     print(f"  1 (earthquake):     {target_counts[1]:,} samples ({target_counts[1]/len(df_binary)*100:.2f}%)")
     
-    # Visualize binary distribution
     plt.figure(figsize=(10, 6))
     bars = plt.bar(['Non-Earthquake (0)', 'Earthquake (1)'], 
                    [target_counts[0], target_counts[1]],
                    color=['#3498db', '#e74c3c'])
     
-    # Add value labels on bars
     for bar in bars:
         height = bar.get_height()
         plt.text(bar.get_x() + bar.get_width()/2., height,
@@ -78,10 +75,7 @@ def save_binary_classification_dataset(df_balanced, output_path="../data/raw/sei
     plt.grid(axis='y', alpha=0.3)
     plt.tight_layout()
     plt.show()
-    
-    # Save to CSV using polars
-    import polars as pl
-    
+        
     print("\n" + "="*60)
     print("SAVING BINARY DATASET")
     print("="*60)
@@ -94,7 +88,6 @@ def save_binary_classification_dataset(df_balanced, output_path="../data/raw/sei
     print(f"Columns: {list(df_binary.columns)}")
     print(f"Target column 'target' added (0=non-earthquake, 1=earthquake)")
     
-    # Show sample rows
     print("\n" + "="*60)
     print("SAMPLE DATA (first 5 rows)")
     print("="*60)

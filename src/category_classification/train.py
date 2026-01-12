@@ -59,7 +59,6 @@ class BinarySeismicEventTrainer:
         print(f"  Class 0 (non-earthquake): {np.sum(y_train == 0)} ({np.sum(y_train == 0)/len(y_train)*100:.1f}%)")
         print(f"  Class 1 (earthquake):     {np.sum(y_train == 1)} ({np.sum(y_train == 1)/len(y_train)*100:.1f}%)")
         
-        # Apply scaling if scaler is provided
         if self.scaler is not None:
             print(f"\nApplying {self.scaler.__class__.__name__}...")
             X_train_scaled = self.scaler.fit_transform(X_train)
@@ -70,13 +69,10 @@ class BinarySeismicEventTrainer:
             X_train_scaled = X_train
             X_val_scaled = X_val
         
-        # Train with progress bar
         print("\nTraining model...")
         
-        # Fit the model
         self.model.fit(X_train_scaled, y_train)
         
-        # Training metrics
         train_pred = self.model.predict(X_train_scaled)
         train_accuracy = accuracy_score(y_train, train_pred)
         train_precision = precision_score(y_train, train_pred, zero_division=0)
@@ -94,7 +90,6 @@ class BinarySeismicEventTrainer:
         print(f"Training Recall:    {train_recall:.4f}")
         print(f"Training F1-Score:  {train_f1:.4f}")
         
-        # Validation metrics if provided
         if X_val is not None and y_val is not None:
             val_pred = self.model.predict(X_val_scaled)
             val_accuracy = accuracy_score(y_val, val_pred)
@@ -132,24 +127,20 @@ class BinarySeismicEventTrainer:
         print("EVALUATING BINARY CLASSIFIER")
         print("="*60)
         
-        # Apply scaling if scaler exists
         if self.scaler is not None:
             X_test_scaled = self.scaler.transform(X_test)
         else:
             X_test_scaled = X_test
         
-        # Make predictions
         print("\nMaking predictions...")
         y_pred = self.model.predict(X_test_scaled)
         y_pred_proba = self.model.predict_proba(X_test_scaled)[:, 1]  # Probability of class 1
         
-        # Calculate metrics
         accuracy = accuracy_score(y_test, y_pred)
         precision = precision_score(y_test, y_pred, zero_division=0)
         recall = recall_score(y_test, y_pred, zero_division=0)
         f1 = f1_score(y_test, y_pred, zero_division=0)
         
-        # Additional binary classification metrics
         try:
             auc_roc = roc_auc_score(y_test, y_pred_proba)
         except:
@@ -180,14 +171,12 @@ class BinarySeismicEventTrainer:
             print(f"AUC-ROC:   {auc_roc:.4f}")
         print(f"MCC:       {mcc:.4f} (Matthews Correlation Coefficient)")
         
-        # Detailed classification report
         print(f"\n{'='*60}")
         print("DETAILED CLASSIFICATION REPORT")
         print(f"{'='*60}")
         target_names = ['Non-Earthquake (0)', 'Earthquake (1)']
         print(classification_report(y_test, y_pred, target_names=target_names, zero_division=0))
         
-        # Confusion matrix details
         from sklearn.metrics import confusion_matrix
         cm = confusion_matrix(y_test, y_pred)
         tn, fp, fn, tp = cm.ravel()
@@ -215,15 +204,12 @@ class BinarySeismicEventTrainer:
         if not self.is_trained:
             raise ValueError("Model must be trained before saving!")
         
-        # Create directory if it doesn't exist
         Path(save_path).mkdir(parents=True, exist_ok=True)
         
-        # Save model
         model_file = os.path.join(save_path, f"{self.model_name}.joblib")
         joblib.dump(self.model, model_file)
         print(f"\nModel saved to: {model_file}")
         
-        # Save scaler if it exists
         scaler_file = None
         if self.scaler is not None:
             scaler_file = os.path.join(save_path, f"{self.model_name}_scaler.joblib")
@@ -287,20 +273,16 @@ class BinarySeismicEventTrainer:
         if not self.is_trained:
             raise ValueError("Model must be trained before plotting!")
         
-        # Apply scaling if scaler exists
         if self.scaler is not None:
             X_test_scaled = self.scaler.transform(X_test)
         else:
             X_test_scaled = X_test
         
-        # Get prediction probabilities
         y_pred_proba = self.model.predict_proba(X_test_scaled)[:, 1]
         
-        # Calculate ROC curve
-        fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
+        fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
         roc_auc = auc(fpr, tpr)
         
-        # Plot
         plt.figure(figsize=(8, 6))
         plt.plot(fpr, tpr, color='#e74c3c', lw=2, label=f'ROC curve (AUC = {roc_auc:.3f})')
         plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--', label='Random classifier')
@@ -329,19 +311,15 @@ class BinarySeismicEventTrainer:
         if not self.is_trained:
             raise ValueError("Model must be trained before plotting!")
         
-        # Apply scaling if scaler exists
         if self.scaler is not None:
             X_test_scaled = self.scaler.transform(X_test)
         else:
             X_test_scaled = X_test
         
-        # Get predictions
         y_pred = self.model.predict(X_test_scaled)
         
-        # Calculate confusion matrix
         cm = confusion_matrix(y_test, y_pred)
         
-        # Normalize if requested
         if normalize:
             cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
             fmt = '.2%'
@@ -350,10 +328,8 @@ class BinarySeismicEventTrainer:
             fmt = 'd'
             title_suffix = ''
         
-        # Create figure
         plt.figure(figsize=(8, 6))
         
-        # Plot heatmap
         sns.heatmap(cm, annot=True, fmt=fmt, cmap=cmap, cbar=True,
                     xticklabels=['Non-Earthquake (0)', 'Earthquake (1)'],
                     yticklabels=['Non-Earthquake (0)', 'Earthquake (1)'],
@@ -363,7 +339,6 @@ class BinarySeismicEventTrainer:
         plt.ylabel('True Label', fontsize=12, fontweight='bold')
         plt.title(f'Confusion Matrix {title_suffix}', fontsize=14, fontweight='bold')
         
-        # Add text annotations for clarity
         tn, fp, fn, tp = cm.ravel() if not normalize else (cm * cm.sum()).ravel()
         
         if not normalize:
