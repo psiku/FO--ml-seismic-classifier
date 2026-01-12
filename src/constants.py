@@ -1,5 +1,6 @@
 from src.get_root_dir import get_root_dir
 from loguru import logger
+from enum import Enum
 
 DATASET_NAME = "nadeeshafdo/SeismicDataWorldwide"
 DATASET_SPLITS_TRAIN = "train"
@@ -24,3 +25,10 @@ PHASENET_MODELS_DIR = ROOT_DIR / 'models' / "phasenet"
 
 MODELS_DIR = ROOT_DIR / "models"
 
+class SeismicEventsMapper(Enum):
+    EARTHQUAKE = 0
+    EXPLOSION = 1
+    NATURAL_EVENT = 2
+    MINING_ACTIVITY = 3
+    OTHER = 4
+    VOLCANIC = 5
