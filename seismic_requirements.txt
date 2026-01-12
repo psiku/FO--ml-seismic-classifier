@@ -1,0 +1,7 @@
+seisbench
+torch
+matplotlib
+ipykernel
+scikit-learn
+scipy
+loguru
