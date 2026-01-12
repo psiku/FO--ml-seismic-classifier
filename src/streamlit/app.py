@@ -1,9 +1,8 @@
 import streamlit as st
-from src.phasenet.stream import fetch_and_annotate_waveforms
-from src.phasenet.model import load_model_from_path, get_phasenet_model
+# from src.phasenet.stream import fetch_and_annotate_waveforms
+# from src.phasenet.model import load_model_from_path, get_phasenet_model
 from obspy import UTCDateTime
-from src.phasenet.visualize import plot_fetched_waveforms
-
+# from src.phasenet.visualize import plot_fetched_waveforms
 
 st.write("# Phasenet Seismic Phase Picker")
 
@@ -14,7 +13,7 @@ choices = st.selectbox(
 
 st.write("You selected:", choices)
 
-model = load_model_from_path("C:\\Users\\barte\\OneDrive\\Pulpit\\FO - projekt\\FO--ml-seismic-classifier\\models\\phasenet\\pretrained_geofon\\best_model.pth", 'geofon')
+# model = load_model_from_path("C:\\Users\\barte\\OneDrive\\Pulpit\\FO - projekt\\FO--ml-seismic-classifier\\models\\phasenet\\pretrained_geofon\\best_model.pth", 'geofon')
 
 st.write("## Fetching and Annotating Waveforms")
 st.selectbox("Select provider:", ("ETH"), index=0, key="provider")
@@ -30,20 +29,20 @@ if st.button("Fetch and Annotate"):
 
     try:
         event_time = UTCDateTime(event_time_str)
-        stream, annotations = fetch_and_annotate_waveforms(
-            model,
-            provider,
-            event_time,
-            network,
-            station,
-        )
-        st.write("### Waveforms and Annotations Fetched Successfully")
-        st.write(stream)
-        st.write(annotations)
+        # stream, annotations = fetch_and_annotate_waveforms(
+        #     model,
+        #     provider,
+        #     event_time,
+        #     network,
+        #     station,
+        # )
+        # st.write("### Waveforms and Annotations Fetched Successfully")
+        # st.write(stream)
+        # st.write(annotations)
 
         st.write("### Plotting Waveforms with Predictions")
-        fig = plot_fetched_waveforms(stream, annotations)
-        st.pyplot(fig)
+        # fig = plot_fetched_waveforms(stream, annotations)
+        # st.pyplot(fig)
     except Exception as e:
         st.error(f"Error fetching or annotating waveforms: {e}")
 

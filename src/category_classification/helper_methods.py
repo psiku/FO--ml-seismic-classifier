@@ -107,7 +107,7 @@ def preprocess_data(df):
     
     df_processed = df.copy()
     
-    # Extract features and target
+    # Extract features and target (without 'id')
     X = df_processed[["mag", "depth", "nst", "gap", "longitude", "latitude"]].copy()
     y = df_processed['target'].copy()
     
