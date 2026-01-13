@@ -1,19 +1,31 @@
 import streamlit as st
+from pathlib import Path
+from src.constants import ROOT_DIR
 
 st.set_page_config(page_title="Seismic App", layout="wide")
+left, mid, right = st.columns([1, 2, 1])  # środek jest 2x szerszy
+with mid:
+    st.title("Seismic ML Dashboard")
 
-st.title("Seismic ML Dashboard")
-st.write(
+    st.markdown(
+        """
+    ### About the project
+    This application is a **machine-learning classifier for seismic data**.
+
+    It supports:
+    - **PhaseNet**: seismic phase picking (P/S) on fetched waveform data,
+    - **Binary classification**: earthquake vs. non-earthquake,
+    - **Multiclass classification**: multiple event types/classes.
+
+    Use the sidebar (**Pages**) to select a module:
+    - **phasenet**
+    - **binary**
+    - **multiclass**
     """
-Select a module from the left sidebar (**Pages**).
+    )
 
-Go to: **phasenet**
-- to use the PhaseNet model for picking/labeling seismic phases from downloaded waveform data.
+    st.write("### Earthquake Example")
+    img_path = Path(ROOT_DIR / "src" / "streamlit" / "banner.png" )
 
-Go to: **binary**
-- to use the binary classification model (earthquake / no earthquake).
-
-Go to: **multiclass**
-- to use the multiclass classification model.
-"""
-)
+    if img_path.exists():
+        st.image(str(img_path), width=700, use_column_width=False)
