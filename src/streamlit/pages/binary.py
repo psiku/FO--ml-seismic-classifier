@@ -46,20 +46,20 @@ if st.button("Predict"):
             "latitude": [latitude],
             "id": [event_id]
         })
-        
+
         features_for_prediction = features.drop(columns=['id'])
         features_scaled = scaler.transform(features_for_prediction)
 
         prediction = model.predict(features_scaled)[0]
-        
+
         st.write("## Prediction Result")
         if prediction == 1:
             st.success(f"**Target: {prediction}** (Earthquake)")
         else:
             st.info(f"**Target: {prediction}** (Non-Earthquake)")
-        
+
         st.write("### Input Values:")
         st.dataframe(features)
-        
+
     except Exception as e:
         st.error(f"Error making prediction: {e}")

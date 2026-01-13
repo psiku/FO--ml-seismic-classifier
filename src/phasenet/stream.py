@@ -22,11 +22,6 @@ def make_stream(dataset, dataset_index):
 
     return st
 
-
-def predict_stream(model, stream: Stream):
-    return model.annotate(stream)
-
-
 def _get_stream_probabilities(annotations):
     p_prob = annotations[0].data
     s_prob = annotations[1].data
@@ -73,28 +68,3 @@ def fetch_waveforms(
         endtime=t + post_s,
     )
     return stream
-
-
-def fetch_and_annotate_waveforms(
-    model,
-    provider: str,
-    t: UTCDateTime,
-    network: str,
-    station: str,
-    location: str = "*",
-    channel: str = "HH?",
-    pre_s: float = 30,
-    post_s: float = 50,
-):
-    stream = fetch_waveforms(
-        provider,
-        t,
-        network,
-        station,
-        location,
-        channel,
-        pre_s,
-        post_s,
-    )
-    annotations = predict_stream(model, stream)
-    return stream, annotations
