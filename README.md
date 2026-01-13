@@ -40,6 +40,11 @@ Run the application:
 make run
 ```
 
+Download iquique dataset:
+```bash
+make iquique
+```
+
 This will start the Streamlit dashboard at `http://localhost:8501`
 
 ## Project Structure
