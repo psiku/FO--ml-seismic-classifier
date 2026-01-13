@@ -28,4 +28,4 @@ with mid:
     img_path = Path(ROOT_DIR / "src" / "streamlit" / "banner.png" )
 
     if img_path.exists():
-        st.image(str(img_path), width=700, use_column_width=False)
+        st.image(str(img_path), width=700)
