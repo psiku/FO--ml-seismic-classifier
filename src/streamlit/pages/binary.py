@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 from src.constants import MODELS_DIR
 
-binary_model_path = MODELS_DIR / "earthquake_classifier_v1.joblib"
-scaler_path = MODELS_DIR / "earthquake_classifier_v1_scaler.joblib"
+binary_model_path = MODELS_DIR / "classificators" / "earthquake_classifier_v1.joblib"
+scaler_path = MODELS_DIR / "classificators" / "earthquake_classifier_v1_scaler.joblib"
 
 st.write("# Binary Classifier")
 
