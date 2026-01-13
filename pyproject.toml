@@ -22,6 +22,7 @@ obspy = "^1.4.2"
 streamlit = "^1.52.2"
 loguru = "^0.7.3"
 torch = "^2.9.1"
+seisbench = "^0.10.2"
 
 [build-system]
 requires = ["poetry-core"]
