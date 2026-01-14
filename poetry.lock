@@ -3022,6 +3022,30 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.4.2)", "pytest-
 type = ["mypy (>=1.18.2)"]
 
 [[package]]
+name = "plotly"
+version = "6.5.1"
+description = "An open-source interactive data visualization library for Python"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "plotly-6.5.1-py3-none-any.whl", hash = "sha256:5adad4f58c360612b6c5ce11a308cdbc4fd38ceb1d40594a614f0062e227abe1"},
+    {file = "plotly-6.5.1.tar.gz", hash = "sha256:b0478c8d5ada0c8756bce15315bcbfec7d3ab8d24614e34af9aff7bfcfea9281"},
+]
+
+[package.dependencies]
+narwhals = ">=1.15.1"
+packaging = "*"
+
+[package.extras]
+dev = ["plotly[dev-optional]"]
+dev-build = ["build", "jupyter", "plotly[dev-core]"]
+dev-core = ["pytest", "requests", "ruff (==0.11.12)"]
+dev-optional = ["anywidget", "colorcet", "fiona (<=1.9.6) ; python_version <= \"3.8\"", "geopandas", "inflect", "numpy", "orjson", "pandas", "pdfrw", "pillow", "plotly-geo", "plotly[dev-build]", "plotly[kaleido]", "polars[timezone]", "pyarrow", "pyshp", "pytz", "scikit-image", "scipy", "shapely", "statsmodels", "vaex ; python_version <= \"3.9\"", "xarray"]
+express = ["numpy"]
+kaleido = ["kaleido (>=1.1.0)"]
+
+[[package]]
 name = "polars"
 version = "1.37.1"
 description = "Blazingly fast DataFrame library"
@@ -4849,4 +4873,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.15"
-content-hash = "419c501b2279cc1fae62934088e6a96337a44ef8f302b5d4b456adc3428a3043"
+content-hash = "7b79f5c28293dc172829ab90533237646c9d1c6d06f7ff65ffc8c47c48c51ce2"

@@ -23,6 +23,7 @@ streamlit = "^1.52.2"
 loguru = "^0.7.3"
 torch = "^2.9.1"
 seisbench = "^0.10.2"
+plotly = "^6.5.1"
 
 [build-system]
 requires = ["poetry-core"]
