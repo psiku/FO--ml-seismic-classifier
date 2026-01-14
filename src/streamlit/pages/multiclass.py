@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 from src.constants import MODELS_DIR, SeismicEventsMapper
 
-multiclass_model_path = MODELS_DIR / "multiclass_seismic_classifier.joblib"
-scaler_path = MODELS_DIR / "multiclass_seismic_classifier_scaler.joblib"
+multiclass_model_path = MODELS_DIR / "classificators" / "multiclass_seismic_classifier.joblib"
+scaler_path = MODELS_DIR / "classificators" / "multiclass_seismic_classifier_scaler.joblib"
 
 
 st.write("# Multi-Class Classifier")
@@ -46,17 +46,17 @@ if st.button("Predict"):
             "latitude": [latitude],
             "id": [event_id]
         })
-        
+
         features_for_prediction = features.drop(columns=['id'])
         features_scaled = scaler.transform(features_for_prediction)
 
         prediction = model.predict(features_scaled)[0]
-        
+
         st.write("## Prediction Result")
         st.success(f"**Target: {prediction}** (Class: {SeismicEventsMapper(prediction).name})")
-        
+
         st.write("### Input Values:")
         st.dataframe(features)
-        
+
     except Exception as e:
         st.error(f"Error making prediction: {e}")
