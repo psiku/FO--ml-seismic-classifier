@@ -30,9 +30,14 @@ poetry install
 
 ## Usage
 
-Set up data:
+Set up data: (not necessary for starting application)
 ```bash
 make data
+```
+
+Activate environment:
+```bash
+eval $(poetry env activate)
 ```
 
 Run the application:
